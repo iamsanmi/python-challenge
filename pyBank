@@ -1,1 +1,56 @@
-omething
+
+#import packages
+import csv
+import os
+#createfile path and save as csvfile
+budget_data = r"C:\Users\ibilo\Desktop\homework\budget_data.csv"
+#define variables
+months = []
+revenue = []
+#read csvfile
+with open(budget_data) as csvfile:
+    csvreader = csv.reader(csvfile)
+    next(csvreader)
+#loop through
+    for row in csvreader:
+        months.append(row[0])
+        revenue.append(int(row[1]))
+
+
+total_months = len(months)
+#print(total_months)
+
+#create greatest inc and dec variable and set equal to revenue
+greatest_inc = revenue[0]
+greatest_dec = revenue[0]
+total_revenue = 0
+#loop through revenue and compare to find greatest inc and dec
+for i in range(len(revenue)):
+    if revenue[i] >= greatest_inc:
+        greatest_inc = revenue[i]
+        greatest_inc_month = months[i]
+    elif revenue[i] <= greatest_dec:
+        greatest_dec = revenue[i]
+        greatest_dec_month = months[i]
+    total_revenue += int(revenue[i])
+    total_revenue
+
+#print(total_revenue)
+#average change
+average_change = (total_revenue)/(total_months) - (total_months)
+average_change
+
+#set path for output file
+with open(budget_data, "w", newline='', encoding='utf8') as output_file:
+    write = csv.writer(output_file)
+    output_file.writelines('Financial Analysis ' + '\n')
+    output_file.writelines('----------------------------' + '\n')
+    output_file.writelines('Total Months: ' + str(total_months) + '\n')
+    output_file.writelines('Total Revenue: $' + str(total_revenue) + '\n')
+    output_file.writelines('Average Revenue Change: $' + str(average_change) + '\n')
+    output_file.writelines('Greatest Increase in Revenue: ' + greatest_inc_month + ' ($' + str(greatest_inc) + ')'+ '\n')
+    output_file.writelines('Greatest Decrease in Revenue: ' + greatest_dec_month + ' ($' + str(greatest_dec) + ')')
+
+#open file in r mode and print to terminal
+with open(budget_data, 'r') as readfile:
+    print(readfile.read())
